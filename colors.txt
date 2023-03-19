@@ -1,0 +1,9 @@
+punane;255;0;0
+kollane;255;255;0
+sinine;0;0;225
+roheline;0;255;0
+roosa;255;0;225
+lilla;127;0;255
+oranz;255;128;0
+must;0;0;0
+valge;255;255;255

@@ -52,15 +52,9 @@ public class ImageFromMatrix {
         }
     }
 
-    public static int[][][] loo_maatriksid(String värv) {
+    public static int[][][] loo_maatriksid(String värv, int r, int g, int b) {
         int[][][] järjend = new int[3][10][10];// loome kolme-mõõtmelise järjendi, milles saab olla 3 kahemõõtmelist maatriksit (RGB)
-        int[] värvid = new int[0];
-        if (värv.equals("punane") == true){
-            värvid = new int[]{255, 0, 0};}
-        else if (värv.equals("kollane") == true) {
-            värvid = new int[]{255, 255 , 0};}
-        else if (värv.equals("sinine") == true) {
-            värvid = new int[]{0, 0, 255};}
+        int[] värvid = new int[]{r, g, b};
 
         for (int i = 0; i < järjend.length; i++) { // tsükkel käib kolm korda
             int väärtus = värvid[i]; // võtame värvide maatriksist õige numbri ja paneme selle õigesse maatriksisse
@@ -123,7 +117,9 @@ public class ImageFromMatrix {
                 {34,34,34,34,34,34,34,34,34,34}};
         PiltVarviline("Varviline.png", RMaatriks,GMaatriks,BMaatriks);
 
-        Scanner object2 = new Scanner(System.in); // loob objekti värvi jaoks
+
+        // SIIN OLI KÕIK, MIDA MA OLIN TESTIMAS ENNE KLASSIDE LOOMIST. ENAM EI TÖÖTA, AGA JÄTSIN HETKEL SELLE SISSE IGAKS JUHUKS
+        /** Scanner object2 = new Scanner(System.in); // loob objekti värvi jaoks
         System.out.println("Sisesta üks värv (punane, kollane, sinine)");
         String värv = object2.nextLine(); // loeb selle rea, mida kirjutasid muutuja väärtusena
         System.out.println("Valitud värv on: " + värv); // väljastab selle
@@ -133,7 +129,7 @@ public class ImageFromMatrix {
         int[][] G = rgb[1];
         int[][] B = rgb[2];
 
-        PiltVarviline("Varviline.png", R,G,B);
+        PiltVarviline("Varviline.png", R,G,B); **/
 
     }
 
