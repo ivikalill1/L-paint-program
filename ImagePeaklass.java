@@ -14,11 +14,39 @@ public class ImagePeaklass  {
         String värv = object2.nextLine(); // loeb selle rea, mida kirjutasid muutuja väärtusena
         System.out.println("Valitud värv on: " + värv); // väljastab selle
 
+        int[][][] maatriks = {{{}}};
         //KÄIME LISTI LÄBI JA LEIAME ÕIGE VÄRVI
         for (Varvid värvListis: list) {
             if (värvListis.getColor().equals(värv)) {
                 System.out.println(värvListis);
+                maatriks = värvListis.looMaatriksidVahendaja(); // luuakse pildi maatriks, mida hakatakse maalimisel kasutama.
                 värvListis.looPilt();} //värvib pildi valitud värvi
+        }
+
+        // PRAEGU TÖÖTAB AINULT PIKSLI VÄRVIMINE VÄRVILISE PILDI PUHUL!!!
+        System.out.println("kas soovid värvida ühe piksli [P] või ristküliku [R]");
+        String sisend = object2.nextLine();
+        while (!sisend.equals("")) { // kui ei tahta kumbagi, siis saab protsessi lõpetada vajutades ENTERit ehk mitte midagi sisestades.
+            if (sisend.equals("P")) { // kui tahetakse pikslit muuta
+
+                System.out.println("Kirjuta formaadis:  r,g,b;x;y");
+                sisend = object2.nextLine();
+                String[] jupid = sisend.split(";");
+
+                // piksli värv
+                String[] värviJupid = jupid[0].split(","); // teeb sisestatud värvi, mis koosneb kolmekohalisest String[]-st, int[] tüüpi.
+                int[] värviJärjend = new int[3];
+                for (int i = 0; i < värviJupid.length; i++) {
+                    värviJärjend[i] = Integer.parseInt(värviJupid[i]);
+                }
+                // värvib piksli. Kasutatakse varem tehtud pildi maatriksit, äsja tehtud värvide järjendit, mis ütleb mis värvi piksel saab olema
+                // ja viimased kaks välja on piksli koordinaadid
+                Joonistamine.piksel(maatriks, värviJärjend,Integer.parseInt(jupid[1]),Integer.parseInt(jupid[2]));
+                ImageFromMatrix.PiltVarviline("Varviline.png", maatriks[0], maatriks[1], maatriks[2]); // update'ib pilti
+            }
+
+
+            sisend = object2.nextLine();
         }
     }
 
