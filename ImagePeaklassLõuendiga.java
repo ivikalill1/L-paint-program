@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ImagePeaklass  {
+public class ImagePeaklassLõuendiga {
     public static void main(String[] args) throws Exception {
         List<Varvid> list = loeFailist("colors.txt");  // LOOME LISTI, KASUTADES MEETODIT loeFailist
 
@@ -14,35 +14,46 @@ public class ImagePeaklass  {
         String värv = object2.nextLine(); // loeb selle rea, mida kirjutasid muutuja väärtusena
         System.out.println("Valitud värv on: " + värv); // väljastab selle
 
-        int[][][] maatriks = {{{}}};
+        int[][][] LõuendiMaatriks = {{{}}}; // tühi maatriks selle jaoks et teda hiljem täita. Vajalik sest if statementi sees ei saa luua objekti.
+        Lõuend maatriks = new Lõuend( new int[0][0] , new int[0][0], new int[0][0]);
+
         //KÄIME LISTI LÄBI JA LEIAME ÕIGE VÄRVI
         for (Varvid värvListis: list) {
             if (värvListis.getColor().equals(värv)) {
                 System.out.println(värvListis);
-                maatriks = värvListis.looMaatriksidVahendaja(); // luuakse pildi maatriks, mida hakatakse maalimisel kasutama.
+
+                LõuendiMaatriks = värvListis.looMaatriksidVahendaja(); // luuakse pildi maatriks, mida hakatakse maalimisel kasutama.
+                maatriks = new Lõuend(LõuendiMaatriks[0],LõuendiMaatriks[1],LõuendiMaatriks[2]);
+
                 värvListis.looPilt();} //värvib pildi valitud värvi
         }
 
-        // PRAEGU TÖÖTAB AINULT PIKSLI VÄRVIMINE VÄRVILISE PILDI PUHUL!!!
         System.out.println("kas soovid värvida ühe piksli [P] või ristküliku [R]");
         String sisend = object2.nextLine();
         while (!sisend.equals("")) { // kui ei tahta kumbagi, siis saab protsessi lõpetada vajutades ENTERit ehk mitte midagi sisestades.
             if (sisend.equals("P")) { // kui tahetakse pikslit muuta
 
-                System.out.println("Kirjuta formaadis:  r,g,b;x;y");
+                System.out.println("Kirjuta formaadis:  r;g;b;x;y");
                 sisend = object2.nextLine();
                 String[] jupid = sisend.split(";");
 
-                // piksli värv
-                String[] värviJupid = jupid[0].split(","); // teeb sisestatud värvi, mis koosneb kolmekohalisest String[]-st, int[] tüüpi.
-                int[] värviJärjend = new int[3];
-                for (int i = 0; i < värviJupid.length; i++) {
-                    värviJärjend[i] = Integer.parseInt(värviJupid[i]);
-                }
-                // värvib piksli. Kasutatakse varem tehtud pildi maatriksit, äsja tehtud värvide järjendit, mis ütleb mis värvi piksel saab olema
+
+                // värvib piksli. jupid[0 kuni 2] on värvi väärtused. jupid[3 ja 4] on piksli koordinaadid
                 // ja viimased kaks välja on piksli koordinaadid
-                Joonistamine.piksel(maatriks, värviJärjend,Integer.parseInt(jupid[1]),Integer.parseInt(jupid[2]));
-                ImageFromMatrix.PiltVarviline("Varviline.png", maatriks[0], maatriks[1], maatriks[2]); // update'ib pilti
+                maatriks.piksel(Integer.parseInt(jupid[0]),Integer.parseInt(jupid[1]), Integer.parseInt(jupid[2]),Integer.parseInt(jupid[3]), Integer.parseInt(jupid[4]));
+                ImageFromMatrix.PiltVarviline("Varviline.png", LõuendiMaatriks[0], LõuendiMaatriks[1], LõuendiMaatriks[2]); // update'ib pilti
+
+
+            } else if (sisend.equals("R")) { //int r, int g, int b, int algus_x, int algus_y, int lõpp_x, int lõpp_y
+                System.out.println("Kirjuta formaadis:  r;g;b;algusX;algusY;lõppX;lõppY");
+                sisend = object2.nextLine();
+                String[] jupid = sisend.split(";");
+
+
+                // maalib lõuendile ristküliku. jupid[0 kuni 2] on värvi väärtused. jupid[3 ja 4] on ristküliku alguskoordinaadid,jupid[5 ja 6] on ristküliku lõppkoordinaadid
+                maatriks.ristkülik(Integer.parseInt(jupid[0]),Integer.parseInt(jupid[1]), Integer.parseInt(jupid[2]),Integer.parseInt(jupid[3]), Integer.parseInt(jupid[4]),Integer.parseInt(jupid[5]),Integer.parseInt(jupid[6]));
+                ImageFromMatrix.PiltVarviline("Varviline.png", LõuendiMaatriks[0], LõuendiMaatriks[1], LõuendiMaatriks[2]); // update'ib pilti
+
             }
 
 
@@ -71,3 +82,5 @@ public class ImagePeaklass  {
         return list;
     }
 }
+
+// copy-paste ristküliku jaoks 0;0;0;2;3;4;5 (Mugavuse jaoks. kommentaar mille pärast ära kustutada!)
