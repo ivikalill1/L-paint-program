@@ -56,14 +56,14 @@ public class ImageFromMatrix {
     }
 
 
-    public static int[][][] loo_maatriksid(int r, int g, int b) {
-        int[][][] järjend = new int[3][10][10];// loome kolme-mõõtmelise järjendi, milles saab olla 3 kahemõõtmelist maatriksit (RGB)
+    public static int[][][] loo_maatriksid(int laius, int pikkus, int r, int g, int b) {
+        int[][][] järjend = new int[3][pikkus][laius];// loome kolme-mõõtmelise järjendi, milles saab olla 3 kahemõõtmelist maatriksit (RGB)
         int[] värvid = new int[]{r, g, b};
 
         for (int i = 0; i < järjend.length; i++) { // tsükkel käib kolm korda
             int väärtus = värvid[i]; // võtame värvide maatriksist õige numbri ja paneme selle õigesse maatriksisse
             for (int j = 0; j < järjend[0].length; j++) {
-                for (int k = 0; k < järjend[0].length; k++) {
+                for (int k = 0; k < järjend[0][0].length; k++) {
                     järjend[i][j][k] = väärtus;
                 }
             }
