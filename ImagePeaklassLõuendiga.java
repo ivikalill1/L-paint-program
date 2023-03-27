@@ -5,15 +5,104 @@ import java.util.Scanner;
 
 public class ImagePeaklassLõuendiga {
     public static void main(String[] args) throws Exception {
-        List<Varvid> list = loeFailist("colors.txt");  // LOOME LISTI, KASUTADES MEETODIT loeFailist
+        List<Varvid> värvid = loeFailist("colors.txt");  // LOOME LISTI, KASUTADES MEETODIT loeFailist
+        int[][][] pildiMaatriks = ImageFromMatrix.loo_maatriksid(0, 0, 0);
 
 
+        // MAIN LOOP
+        while (true) {
+
+            //TEGEVUSE KÜSIMINE
+            Scanner objektTegevus = new Scanner(System.in); // loob objekti tegevuse jaoks
+            System.out.println("Vali üks tegevustest, mida teha: Tausta värvimine [Taustapilt] | Ühe piksli värvimine [P] | Ristküliku värvimine [R]) | Pildi pööramine teistpidi [Flip] | Pildi pööramine 90 kraadi paremale [PPööre]");
+            String tegevus = objektTegevus.nextLine(); // loeb selle rea, mida kirjutasid muutuja väärtusena
+
+            //TÜHI EHK PROGRAMMI KINNI PANEK
+            if (tegevus.equals(""))
+                break;
+
+
+            //TAUSTAPILT
+            else if (tegevus.equals("Taustapilt")) {
+                Scanner objektVärv = new Scanner(System.in);
+                System.out.println("Sisesta üks taustapildi värv (punane, kollane, sinine, roheline, roosa, lilla, oranz, valge, must)");
+                String valitudVärv = objektVärv.nextLine();
+
+                Varvid värv = leiaLististOigeVarv(valitudVärv, värvid);
+                pildiMaatriks = värv.looTaustaPilt();
+            } // taustapilt if- lause
+
+
+            //ÜHE PIKSLI VÄRVIMINE
+            else if (tegevus.equals("P")) {
+                Scanner objektVärv = new Scanner(System.in);
+                System.out.println("Sisesta piksli värv värv (punane, kollane, sinine, roheline, roosa, lilla, oranz, valge, must)");
+                String valitudVärv = objektVärv.nextLine();
+                Varvid värv = leiaLististOigeVarv(valitudVärv, värvid);
+
+                Scanner objektX = new Scanner(System.in);
+                System.out.println("Sisesta piksli x-koordinaat");
+                int X = Integer.parseInt(objektX.nextLine());
+
+                Scanner objektY = new Scanner(System.in);
+                System.out.println("Sisesta piksli y-koordinaat");
+                int Y = Integer.parseInt(objektY.nextLine());
+
+                //kohe alguses on loodud maatriks väärtustega 0,0,0, mida saame ka Lõuendis kasutada. Juhul, kui kuskil teises kohas on pildiMaatriksit muudetud, siis muudatused ei lähe kaduma
+                Lõuend lõuendiMaatriks = new Lõuend(pildiMaatriks[0], pildiMaatriks[1], pildiMaatriks[2]);
+                lõuendiMaatriks.piksel(värv.getR(), värv.getG(), värv.getB(), X, Y);
+                ImageFromMatrix.PiltVarviline("Varviline.png", pildiMaatriks[0], pildiMaatriks[1], pildiMaatriks[2]);
+            } //ühe piklsi if- lause
+
+
+            //RISTKÜLIKU VÄRVIMINE
+            else if (tegevus.equals("R")) {
+                Scanner objektVärv = new Scanner(System.in);
+                System.out.println("Sisesta piksli värv värv (punane, kollane, sinine, roheline, roosa, lilla, oranz, valge, must)");
+                String valitudVärv = objektVärv.nextLine();
+                Varvid värv = leiaLististOigeVarv(valitudVärv, värvid);
+
+                Scanner objektX = new Scanner(System.in);
+                System.out.println("Sisesta piksli x-koordinaat");
+                int X = Integer.parseInt(objektX.nextLine());
+
+                Scanner objektY = new Scanner(System.in);
+                System.out.println("Sisesta piksli y-koordinaat");
+                int Y = Integer.parseInt(objektY.nextLine());
+
+                //kohe alguses on loodud maatriks väärtustega 0,0,0, mida saame ka Lõuendis kasutada. Juhul, kui kuskil teises kohas on pildiMaatriksit muudetud, siis muudatused ei lähe kaduma
+                Lõuend lõuendiMaatriks = new Lõuend(pildiMaatriks[0], pildiMaatriks[1], pildiMaatriks[2]);
+                lõuendiMaatriks.ristkülik(värv.getR(), värv.getG(), värv.getB(), X, Y);
+                ImageFromMatrix.PiltVarviline("Varviline.png", pildiMaatriks[0], pildiMaatriks[1], pildiMaatriks[2]);
+            } //ristküliku if- lause
+
+
+            //PÖÖRAME TEISTPIDI
+            else if (tegevus.equals("Flip")) {
+                Flip flip = new Flip();
+                pildiMaatriks = flip.pooraTeistPidi(pildiMaatriks);
+                ImageFromMatrix.PiltVarviline("Varviline.png", pildiMaatriks[0], pildiMaatriks[1], pildiMaatriks[2]);
+            } //pöörame teistpidi if-lause
+
+
+            //PÖÖRE 90 KRAADI PAREMALE
+            else if (tegevus.equals("PPööre")) {
+                Flip flip = new Flip();
+                pildiMaatriks = flip.poora90kraadiparemale(pildiMaatriks);
+                ImageFromMatrix.PiltVarviline("Varviline.png", pildiMaatriks[0], pildiMaatriks[1], pildiMaatriks[2]);
+            } // pööre 90 kraadi paremale if-lause
+
+
+            else
+                System.out.println("Sisestasid vist midagi valesti");
+
+
+        } // while-main loop
+
+    }// PEAKLASS
+
+        /**
         //KÜSIME INPUTTI KASUTAJA KÄEST, ET SAADA TEADA, MILLIST VÄRVI TA TAHAB
-        Scanner object2 = new Scanner(System.in); // loob objekti värvi jaoks
-        System.out.println("Sisesta üks värv (punane, kollane, sinine, roheline, roosa, lilla, oranz, valge, must)");
-        String värv = object2.nextLine(); // loeb selle rea, mida kirjutasid muutuja väärtusena
-        System.out.println("Valitud värv on: " + värv); // väljastab selle
-
         int[][][] LõuendiMaatriks = {{{}}}; // tühi maatriks selle jaoks et teda hiljem täita. Vajalik sest if statementi sees ei saa luua objekti.
         Lõuend maatriks = new Lõuend( new int[0][0] , new int[0][0], new int[0][0]);
 
@@ -25,7 +114,7 @@ public class ImagePeaklassLõuendiga {
                 LõuendiMaatriks = värvListis.looMaatriksidVahendaja(); // luuakse pildi maatriks, mida hakatakse maalimisel kasutama.
                 maatriks = new Lõuend(LõuendiMaatriks[0],LõuendiMaatriks[1],LõuendiMaatriks[2]);
 
-                värvListis.looPilt();} //värvib pildi valitud värvi
+                värvListis.looTaustaPilt();} //värvib pildi valitud värvi
         }
 
         System.out.println("kas soovid värvida ühe piksli [P] või ristküliku [R]");
@@ -59,7 +148,7 @@ public class ImagePeaklassLõuendiga {
 
             sisend = object2.nextLine();
         }
-    }
+    } **/
 
     //KASUTAB värvid.txt FAILI JA LOOB LISTI
     public static List<Varvid> loeFailist(String failinimi) throws Exception {
@@ -80,6 +169,17 @@ public class ImagePeaklassLõuendiga {
             }
         }
         return list;
+    }
+
+    // LEIAB VÄRVIDE LISTIST ÕIGE VÄRVI JA VÄLJASTAB SELLE, MIS ON KLASSI VARVID TÜÜPI
+    public static Varvid leiaLististOigeVarv(String valitudVärv, List<Varvid> list) {
+        for (Varvid värvListis: list) {
+            if (värvListis.getColor().equals(valitudVärv)) {
+                System.out.println(värvListis);
+                return värvListis;
+            }
+        }
+        return null;
     }
 }
 

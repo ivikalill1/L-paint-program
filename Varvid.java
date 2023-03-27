@@ -15,8 +15,11 @@ public class Varvid {
     public String getColor() { //vajalik selleks, et hiljem võrrelda kasutaja poolt antud värvi
         return color;
     }
+    public int getR() {return r;}
+    public int getG() {return g;}
+    public int getB() {return b;}
 
-    public void looPilt() {
+    public int[][][] looTaustaPilt() {
         int[][][] rgb = ImageFromMatrix.loo_maatriksid(r, g, b); // loome rgb kolmemõõtmelise järjendi, kasutades meie teist klassi
 
         int[][] R = rgb[0]; // loome RGB maatriksid, kasutased seda järjendit
@@ -24,10 +27,7 @@ public class Varvid {
         int[][] B = rgb[2];
 
         ImageFromMatrix.PiltVarviline("Varviline.png", R,G,B); //loob pildi
-    }
-
-    public int[][][] looMaatriksidVahendaja() { // see on vajalik, et oleks võimalik kasutada loo_maatriksid meetodit Varvid objektiga
-        return ImageFromMatrix.loo_maatriksid(r, g, b);
+        return rgb;
     }
 
     @Override
