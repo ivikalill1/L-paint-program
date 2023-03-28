@@ -32,4 +32,18 @@ public class Flip {
         }
         return tulemusMaatriks;
     }
+
+    //PILDI PÖÖRAMINE 90 KRAADI VASAKULE. VÕTAB VASTU int[][][] TÜÜPI PILDIMAATRIKSI
+    public int[][][] poora90kraadivasakule(int[][][] pildiMaatriks) { // teeme seda nii, et loome uue maatriksi, mida hakkame täitma
+        int[][][] tulemusMaatriks = new int[3][pildiMaatriks[0][0].length][pildiMaatriks[0].length]; // juhuslikult, kui tegemist pole ruutmaatriksiga, loome uue maatriksi pikkused vastupidiselt antud maatriksiga
+
+        for (int i = 0; i < 3; i++) { // läbime kõik kolm RGB maatriksit selles kolmemõõtmelises järjendis
+            for (int rida = 0; rida < pildiMaatriks[0].length; rida++) {
+                for (int veerg = 0; veerg < pildiMaatriks[0][0].length; veerg++) {
+                    tulemusMaatriks[i][tulemusMaatriks[0].length - veerg-1][rida] = pildiMaatriks[i][rida][veerg];
+                }
+            }
+        }
+        return tulemusMaatriks;
+    }
 }

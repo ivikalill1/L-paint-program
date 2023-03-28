@@ -19,8 +19,8 @@ public class Varvid {
     public int getG() {return g;}
     public int getB() {return b;}
 
-    public int[][][] looTaustaPilt() {
-        int[][][] rgb = ImageFromMatrix.loo_maatriksid(r, g, b); // loome rgb kolmemõõtmelise järjendi, kasutades meie teist klassi
+    public int[][][] looTaustaPilt(int laius, int pikkus) {
+        int[][][] rgb = ImageFromMatrix.loo_maatriksid(laius, pikkus, r, g, b); // loome rgb kolmemõõtmelise järjendi, kasutades meie teist klassi
 
         int[][] R = rgb[0]; // loome RGB maatriksid, kasutased seda järjendit
         int[][] G = rgb[1];
