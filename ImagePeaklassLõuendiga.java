@@ -49,19 +49,35 @@ public class ImagePeaklassLõuendiga {
 
             //TAUSTAPILT
             else if (tegevus.equals("Taustapilt")) {
-                System.out.println("Sisesta üks taustapildi värv (punane, kollane, sinine, roheline, roosa, lilla, oranz, valge, must)");
+                System.out.println("Sisesta üks taustapildi värv (punane, kollane, sinine, roheline, roosa, lilla, oranz, valge, must | vali suvaline värv [Random])");
                 String valitudVärv = scanner.nextLine();
 
-                Varvid värv = leiaLististOigeVarv(valitudVärv, värvid);
+                Varvid värv;
+
+                // KUI VALITI SUVALINE
+                if (valitudVärv.equals("Random")) {
+                    int suvalineArv =  (int) Math.random()*(värvid.size() - 1) + 0; //leiame suvalise värvi, kasutades math.randomit
+                    värv = värvid.get(suvalineArv);
+                }
+                else { // KUI VALITI VÄRV
+                    värv = leiaLististOigeVarv(valitudVärv, värvid);}
                 pildiMaatriks = värv.looTaustaPilt(PildiLaius, PildiKõrgus);
             } // taustapilt if- lause
 
 
             //ÜHE PIKSLI VÄRVIMINE
             else if (tegevus.equals("P")) {
-                System.out.println("Sisesta piksli värv (punane, kollane, sinine, roheline, roosa, lilla, oranz, valge, must)");
+                System.out.println("Sisesta piksli värv (punane, kollane, sinine, roheline, roosa, lilla, oranz, valge, must | vali suvaline värv [Random]))");
                 String valitudVärv = scanner.nextLine();
-                Varvid värv = leiaLististOigeVarv(valitudVärv, värvid);
+
+                Varvid värv;
+                // KUI VALITI SUVALINE
+                if (valitudVärv.equals("Random")) {
+                    int suvalineArv =  (int) Math.random()*(värvid.size() - 1) + 0; //leiame suvalise värvi, kasutades math.randomit
+                    värv = värvid.get(suvalineArv);
+                }
+                else { // KUI VALITI VÄRV
+                    värv = leiaLististOigeVarv(valitudVärv, värvid);}
 
                 System.out.println("Sisesta piksli x-koordinaat");
                 int X = Integer.parseInt(scanner.nextLine());
@@ -78,9 +94,17 @@ public class ImagePeaklassLõuendiga {
 
             //RISTKÜLIKU VÄRVIMINE
             else if (tegevus.equals("R")) {
-                System.out.println("Sisesta ristküliku värv (punane, kollane, sinine, roheline, roosa, lilla, oranz, valge, must)");
+                System.out.println("Sisesta ristküliku värv (punane, kollane, sinine, roheline, roosa, lilla, oranz, valge, must | vali suvaline värv [Random]))");
                 String valitudVärv = scanner.nextLine();
-                Varvid värv = leiaLististOigeVarv(valitudVärv, värvid);
+
+                Varvid värv;
+                // KUI VALITI SUVALINE
+                if (valitudVärv.equals("Random")) {
+                    int suvalineArv =  (int) Math.random()*(värvid.size() - 1) + 0; //leiame suvalise värvi, kasutades math.randomit
+                    värv = värvid.get(suvalineArv);
+                }
+                else { // KUI VALITI VÄRV
+                    värv = leiaLististOigeVarv(valitudVärv, värvid);}
 
                 System.out.println("Sisesta piksli x-alguskoordinaat");
                 int algus_X = Integer.parseInt(scanner.nextLine());
