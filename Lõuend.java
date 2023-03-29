@@ -1,5 +1,4 @@
 public class Lõuend {
-    private int[][] mustvalgeMaatriks;
     private int[][] RMaatriks;
     private int[][] GMaatriks;
     private int[][] BMaatriks;
