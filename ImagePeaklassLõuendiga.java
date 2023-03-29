@@ -56,7 +56,7 @@ public class ImagePeaklassLõuendiga {
 
                 // KUI VALITI SUVALINE
                 if (valitudVärv.equals("Random")) {
-                    int suvalineArv =  (int) Math.random()*(värvid.size() - 1) + 0; //leiame suvalise värvi, kasutades math.randomit
+                    int suvalineArv =  (int) Math.round(Math.random()*(värvid.size() - 1)); //leiame suvalise värvi, kasutades math.randomit
                     värv = värvid.get(suvalineArv);
                 }
                 else { // KUI VALITI VÄRV
@@ -73,7 +73,7 @@ public class ImagePeaklassLõuendiga {
                 Varvid värv;
                 // KUI VALITI SUVALINE
                 if (valitudVärv.equals("Random")) {
-                    int suvalineArv =  (int) Math.random()*(värvid.size() - 1) + 0; //leiame suvalise värvi, kasutades math.randomit
+                    int suvalineArv =  (int) Math.round(Math.random()*(värvid.size() - 1)); //leiame suvalise värvi, kasutades math.randomit
                     värv = värvid.get(suvalineArv);
                 }
                 else { // KUI VALITI VÄRV
@@ -100,7 +100,7 @@ public class ImagePeaklassLõuendiga {
                 Varvid värv;
                 // KUI VALITI SUVALINE
                 if (valitudVärv.equals("Random")) {
-                    int suvalineArv =  (int) Math.random()*(värvid.size() - 1) + 0; //leiame suvalise värvi, kasutades math.randomit
+                    int suvalineArv =  (int) Math.round(Math.random()*(värvid.size() - 1)); //leiame suvalise värvi, kasutades math.randomit
                     värv = värvid.get(suvalineArv);
                 }
                 else { // KUI VALITI VÄRV
